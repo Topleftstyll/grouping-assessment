@@ -34,7 +34,7 @@ header_values.each do |header|
     end
 end
 
-# assuming phone country code is always +1
+
 def sanitize_phone(phone)
     return phone if phone.nil? || phone == ''
 
