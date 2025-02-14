@@ -1,10 +1,4 @@
-# Zipline hiring exercises
+Grouping Assessment
 
-Programming Exercises for Evaluating Candidates. Please see the individual folders for each README:
-
-- [Backend](/grouping)
-- [Frontend](/slideshow)
-- [iOS (Swift)](/swift)
-- [Android (Kotlin)](/kotlin)
-- [Dev/Ops](/terraform)
-- [Support](/support)
+I thought it would be a good idea to show the progression I've made over the last 2.5 years here at Zipline by linking my CSE assessment.
+- [CSE Assessment](/grouping/cse-hiring-assessment.rb)
