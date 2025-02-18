@@ -22,7 +22,7 @@ class Search
 
   def validate_file_path
     path = BASE_FILE_PATH + file_name
-    return path if File.exist?(path)
+    return path if File.exist?(path) && path.end_with?('.csv')
 
     puts "File not found: #{file_name}"
     exit

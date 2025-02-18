@@ -6,9 +6,10 @@ require_relative 'email_sanitizer'
 require_relative 'union_find'
 
 class MatchUsers
-  attr_reader :csv_data, :matching_headers, :union_find, :groups
+  attr_reader :file_name, :csv_data, :matching_headers, :union_find, :groups
 
   def initialize(path, match_type)
+    @file_name = path.split('/').last
     @csv_data = CSV.parse(File.read(path), headers: true)
     @matching_headers = headers_by_match_type(match_type)
     @union_find = UnionFind.new
@@ -81,7 +82,7 @@ class MatchUsers
 
   def output_to_csv
     # TODO: make a folder to store outputs and use timestamp + filename to generate output file name
-    CSV.open('output.csv', 'w') do |csv|
+    CSV.open("output/#{Time.now.to_i}_#{file_name}", 'w') do |csv|
       # Prepend ID to the headers
       new_headers = ['ID'] + (csv_data.headers - ['ID'])
       csv << new_headers

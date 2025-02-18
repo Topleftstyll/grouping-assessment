@@ -18,10 +18,18 @@ class SearchTest < Minitest::Test
     end
   end
 
+  def test_call_exits_with_file_extension_thats_not_csv
+    File.stub(:exist?, false) do
+      search = Search.new(@valid_match_type, @invalid_file.gsub('csv', 'txt'))
+
+      assert_raises(SystemExit) { search.call }
+    end
+  end
+
   def test_call_exits_when_invalid_match_type
     File.stub(:exist?, true) do
       search = Search.new(@invalid_match_type, @valid_file)
-      
+
       assert_raises(SystemExit) { search.call }
     end
   end

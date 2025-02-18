@@ -25,7 +25,9 @@ class MatchUsersTest < Minitest::Test
 
   def teardown
     File.delete(@temp_file) if File.exist?(@temp_file)
-    File.delete('output.csv') if File.exist?('output.csv')
+
+    output_file = "output/#{Time.now.to_i}_#{@temp_file}"
+    File.delete(output_file) if File.exist?(output_file)
   end
 
   # Override output_to_csv so that we don't write a file during tests
@@ -123,8 +125,9 @@ class MatchUsersTest < Minitest::Test
   def test_output_file_matches_csv_data
     match_users = MatchUsers.new(@temp_file, "same_email_or_phone")
     match_users.call
-  
-    output_csv = CSV.read('output.csv', headers: true)
+
+    output_file = "output/#{Time.now.to_i}_#{@temp_file}"
+    output_csv = CSV.read(output_file, headers: true)
     expected_headers = ['ID'] + (match_users.csv_data.headers - ['ID'])
 
     assert_equal expected_headers, output_csv.headers
