@@ -1,43 +1,50 @@
+require 'optparse'
 require 'benchmark'
-require_relative 'lib/match_users'
 
-class Search
-  attr_reader :file_name, :match_type
+require_relative './lib/search'
 
-  MATCH_TYPES = %w[same_email same_phone same_email_or_phone].freeze
-  BASE_FILE_PATH = 'files/'.freeze
-
-  def initialize(match_type, file_name)
-    @file_name = file_name
-    @match_type = match_type.downcase
+class HireJoshCLI
+  def initialize(argv)
+    @argv = argv
+    @options = {}
   end
 
-  def call
-    path = validate_file
-    match_type = validate_match_type
+  def parse_options
+    OptionParser.new do |opts|
+      opts.banner = "Usage: ruby hire_josh.rb -f FILE -m MATCH_TYPE"
 
-    MatchUsers.new(path, match_type).call
+      opts.on("-m MATCH", "--match MATCH_TYPE", "Specify the match type (same_email, same_phone, same_email_or_phone)") do |match|
+        @options[:match] = match
+      end
+
+      opts.on("-f FILE", "--file FILE", "Specify the CSV input file") do |file|
+        @options[:file] = file
+      end
+
+      opts.on("-h", "--help", "Prints this help message") do
+        puts opts
+        exit
+      end
+    end.parse!(@argv)
   end
 
-  private
-
-  def validate_file
-    path = BASE_FILE_PATH + file_name
-    return path if File.exist?(path)
-
-    puts "File not found: #{file_name}"
-    exit 1
+  def validate_options_are_present
+    if @options[:file].nil? || @options[:match].nil?
+      puts "Error: Both -f (file) and -m (match type) are required. Add -h for more information."
+      exit
+    end
   end
 
-  def validate_match_type
-    return match_type if MATCH_TYPES.include?(match_type)
+  def run
+    parse_options
+    validate_options_are_present
 
-    puts "Invalid Match Type: Available match types are #{MATCH_TYPES.join(', ')}"
-    puts "Example: ruby hire_josh.rb same_email input1.csv"
-    exit 1
+    puts Benchmark.measure {
+      Search.new(@options[:match], @options[:file]).call
+    }
+
+    puts "Matching process completed. Output saved to output.csv."
   end
 end
 
-puts Benchmark.measure {
-  Search.new(ARGV[0], ARGV[1]).call
-}
+HireJoshCLI.new(ARGV).run
