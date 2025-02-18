@@ -30,3 +30,5 @@ I used UnionFind w/ path compression for the matching algorithm - [Video](https:
 
 Phone numbers are assumed to have a country code of +1. This should be changed to something more dynamic in the future.
 
+Benchmark is used to display to the console the time it takes to run the entire program.
+
