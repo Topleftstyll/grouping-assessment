@@ -28,7 +28,7 @@ class MatchUsers
 
       # Grab UUID from groups hash if the root_parent is the same if not, generate a new UUID
       groups[root_parent] ||= SecureRandom.uuid
-      row['ID'] = groups[root_parent]
+      row = groups[root_parent]
     end
 
     output_to_csv
@@ -81,7 +81,6 @@ class MatchUsers
   end
 
   def output_to_csv
-    # TODO: make a folder to store outputs and use timestamp + filename to generate output file name
     CSV.open("output/#{Time.now.to_i}_#{file_name}", 'w') do |csv|
       # Prepend ID to the headers
       new_headers = ['ID'] + (csv_data.headers - ['ID'])

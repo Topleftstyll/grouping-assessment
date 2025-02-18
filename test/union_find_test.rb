@@ -36,7 +36,7 @@ class UnionFindTest < Minitest::Test
     @union_find.union(3, 4)
 
     # Find will handle the final path compression and update the root of all indices to 1
-    # { 1 = >5, 2 => 5, 3 => 5, 4 => 5, 5 => 5 }
+    # { 1 => 5, 2 => 5, 3 => 5, 4 => 5, 5 => 5 }
     root = @union_find.find(1)
     assert_equal root, @union_find.find(1)
     assert_equal root, @union_find.find(2)

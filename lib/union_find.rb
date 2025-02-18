@@ -5,17 +5,13 @@ class UnionFind
     @index_to_parent = {}
   end
 
-  def parent
-    @index_to_parent
-  end
-
   def find(index)
     @index_to_parent[index] = index unless @index_to_parent.key?(index)
     @index_to_parent[index] = find(@index_to_parent[index]) if @index_to_parent[index] != index
 
     @index_to_parent[index]
   end
- 
+
   def union(parent_index, index_to_add)
     @index_to_parent[find(parent_index)] = find(index_to_add)
   end

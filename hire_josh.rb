@@ -12,7 +12,7 @@ class HireJoshCLI
 
   def parse_options
     OptionParser.new do |opts|
-      opts.banner = "Usage: ruby hire_josh.rb -f FILE -m MATCH_TYPE"
+      opts.banner = "Usage: ./hire_josh.rb -m MATCH_TYPE -f FILE"
 
       opts.on("-m MATCH", "--match MATCH_TYPE", "Specify the match type (same_email, same_phone, same_email_or_phone)") do |match|
         @options[:match] = match
