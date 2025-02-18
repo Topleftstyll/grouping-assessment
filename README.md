@@ -5,7 +5,7 @@ I thought it would be a good idea to show the progression I've made over the las
 
 
 # Summary
-hire_josh.rb can be called by using flags, example: hire_josh -m MATCH_TYPE -f FILE_NAME
+hire_josh.rb can be called by using flags, example: `./hire_josh -m MATCH_TYPE -f FILE_NAME`
 MATCH_TYPES = same_email, same_phone, same_email_or_phone.
 
 These match types will find all users that match on all headers associated with the match type and assign an ID to those users. Any user not matching another user by one of those values with receive a unique ID.
@@ -14,10 +14,10 @@ These match types will find all users that match on all headers associated with 
 From the root folder in the command line:
 ```
   Example:
-    hire_josh.rb -m same_email -f file.csv
+    ./hire_josh.rb -m same_email -f file.csv
 
   Help:
-    hire_josh.rb -h
+    ./hire_josh.rb -h
     -m, --match MATCH_TYPE           Specify the match type (same_email, same_phone, same_email_or_phone)
     -f, --file FILE                  Specify the CSV input file
     -h, --help                       Prints this help message

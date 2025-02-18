@@ -16,7 +16,7 @@ class MatchUsers
   end
 
   def call
-    value_to_indices.each_value do |indices| 
+    value_to_indices.each_value do |indices|
       first = indices.first
       indices.each { |index| union_find.union(first, index) }
     end
@@ -24,7 +24,7 @@ class MatchUsers
     csv_data.each_with_index do |row, index|
       # Finalize path compression and grab finalized root parent
       root_parent = union_find.find(index)
-      
+
       # Grab UUID from groups hash if the root_parent is the same if not, generate a new UUID
       groups[root_parent] ||= SecureRandom.uuid
       row['ID'] = groups[root_parent]
@@ -80,6 +80,7 @@ class MatchUsers
   end
 
   def output_to_csv
+    # TODO: make a folder to store outputs and use timestamp + filename to generate output file name
     CSV.open('output.csv', 'w') do |csv|
       # Prepend ID to the headers
       new_headers = ['ID'] + (csv_data.headers - ['ID'])
