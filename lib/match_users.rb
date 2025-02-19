@@ -81,6 +81,8 @@ class MatchUsers
   end
 
   def output_to_csv
+    Dir.mkdir('output') unless Dir.exist?('output')
+
     CSV.open("output/#{Time.now.to_i}_#{file_name}", 'w') do |csv|
       # Prepend ID to the headers
       new_headers = ['ID'] + (csv_data.headers - ['ID'])
