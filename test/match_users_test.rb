@@ -40,7 +40,7 @@ class MatchUsersTest < Minitest::Test
     assert_equal expected_headers, output_csv.headers
   end
 
-  def test_output_file_matches_csv_data
+  def test_output_file_matches_csv_data_for_same_email
     match_users = MatchUsers.new(@temp_file, "same_email")
     match_users.call
 
@@ -55,7 +55,7 @@ class MatchUsersTest < Minitest::Test
     end
   end
 
-  def test_output_file_matches_csv_data
+  def test_output_file_matches_csv_data_for_same_phone
     match_users = MatchUsers.new(@temp_file, "same_phone")
     match_users.call
 
@@ -70,7 +70,7 @@ class MatchUsersTest < Minitest::Test
     end
   end
 
-  def test_output_file_matches_csv_data
+  def test_output_file_matches_csv_data_for_same_email_or_phone
     match_users = MatchUsers.new(@temp_file, "same_email_or_phone")
     match_users.call
 

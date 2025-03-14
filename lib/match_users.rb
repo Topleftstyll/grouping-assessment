@@ -28,7 +28,7 @@ class MatchUsers
 
       # Grab UUID from groups hash if the root_parent is the same if not, generate a new UUID
       groups[root_parent] ||= SecureRandom.uuid
-      row = groups[root_parent]
+      row['ID'] = groups[root_parent]
     end
 
     output_to_csv
